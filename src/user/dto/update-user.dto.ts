@@ -1,6 +1,5 @@
 import {
     IsString,
-    IsEmail,
     IsOptional,
     IsNotEmpty,
     Length,
@@ -11,21 +10,11 @@ import {
     @IsString()
     @IsNotEmpty()
     @Length(6, 150)
-    nome: string;
-  
-    @IsOptional()
-    @IsEmail()
-    @IsNotEmpty()
-    @Length(6, 150)
-    email: string;
+    name: string;
 
     @IsOptional()
     @IsString()
     @IsNotEmpty()
     password:string;
 
-    @IsOptional()
-    @IsString()
-    @IsNotEmpty()
-    confirmpassword:string;
   }
