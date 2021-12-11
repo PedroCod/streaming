@@ -20,6 +20,7 @@ model User {
   confirmpassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  animes    Anime[]
 }
 
 model Anime {
@@ -32,4 +33,5 @@ model Anime {
   image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  usuarios       User[]
 }

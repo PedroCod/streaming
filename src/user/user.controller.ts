@@ -21,6 +21,11 @@ export class UserController {
     findOne(@Param('id') id: string): Promise<User> {
         return this.service.findUser(id)
     }
+    
+    @Get('findMany')
+    findMany(): Promise<any[]> {
+      return this.service.findMany();
+    }
     @Delete('delete/:id')
     deleteOne(@Param('id') id: string): Promise<{ message: string }> {
         return this.service.deleteUser(id);

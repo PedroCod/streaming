@@ -1,9 +1,10 @@
 import { Injectable, ConflictException, UnauthorizedException, NotFoundException } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User, Anime } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserController } from './user.controller';
 
 
 @Injectable()
@@ -48,15 +49,21 @@ export class UserService {
             throw new NotFoundException("ID not found in database")
         }
         delete user.password
+        delete user.confirmpassword
         return user
     }
-
+    async findMany(): Promise<any[]> {
+        const user = await this.db.user.findMany();
+        const userNoPass = user.map(({ password, ...resto }) => resto);
+        return userNoPass;
+    }
     async updateUser(id: string, dados: UpdateUserDto): Promise<User> {
         const user = await this.db.user.update({
             data: dados,
-            where: { id: id }
+            where: { id: id },
         })
         delete user.password
+        delete user.confirmpassword
         return user
     }
 
@@ -74,7 +81,34 @@ export class UserService {
 
         return {
             message: 'successful deleting user'
+        };
+    }
+
+    async addList(user: User, animeId: string) {
+        const anime = await this.db.anime.findUnique({
+            where: { id: animeId },
+        });
+        if (!anime) {
+            throw new NotFoundException('Anime not Found.');
         }
+
+        const usuario = await this.db.user.update({
+            where: { id: user.id },
+            data: {
+                animes: {
+                    connect: {
+                        id: anime.id
+                    }
+                },
+            },
+            include: {
+                animes: true
+            }
+
+        })
+        delete usuario.password
+        delete usuario.confirmpassword
+        return usuario;
     }
 
 

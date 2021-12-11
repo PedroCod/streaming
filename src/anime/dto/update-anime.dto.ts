@@ -16,4 +16,9 @@ export class UpdateAnimeDto {
     @IsOptional()
     @IsNotEmpty()
     totaltemp: string
+
+    @IsString()
+    @IsOptional()
+    @IsNotEmpty()
+    image: string
 }

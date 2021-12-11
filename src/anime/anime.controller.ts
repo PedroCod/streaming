@@ -20,16 +20,19 @@ export class AnimeController {
     return this.animeService.findAll();
   }
 
+  @UseGuards(AuthGuard())
   @Get('get-one/:id')
   findOne(@Param('id') id: string): Promise<Anime> {
     return this.animeService.findOne(id);
   }
 
+  @UseGuards(AuthGuard())
   @Patch('update-anime/:id')
   update(@Param('id') id: string, @Body() updateAnimeDto: UpdateAnimeDto): Promise<Anime> {
     return this.animeService.update(id, updateAnimeDto);
   }
 
+  @UseGuards(AuthGuard())
   @Delete('delete-anime/:id')
   remove(@Param('id') id: string): Promise<{message: string}> {
     return this.animeService.remove(id);

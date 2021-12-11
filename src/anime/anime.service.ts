@@ -7,6 +7,7 @@ import { UpdateAnimeDto } from './dto/update-anime.dto';
 @Injectable()
 export class AnimeService {
   constructor(private db: PrismaService) { }
+  
   async create(dados: CreateAnimeDto): Promise<Anime> {
     const animeExist = await this.db.anime.findUnique({
       where: { nameanime: dados.nameanime },
