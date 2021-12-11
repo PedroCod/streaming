@@ -57,15 +57,16 @@ export class UserService {
         const userNoPass = user.map(({ password, ...resto }) => resto);
         return userNoPass;
     }
-    async updateUser(id: string, dados: UpdateUserDto): Promise<User> {
+    async update(id: string, dadosDoUsuario: UpdateUserDto): Promise<User> {
         const user = await this.db.user.update({
-            data: dados,
-            where: { id: id },
-        })
-        delete user.password
-        delete user.confirmpassword
-        return user
-    }
+          data: dadosDoUsuario,
+          where: { id: id },
+        });
+    
+        delete user.password;
+    
+        return user;
+      }
 
     async deleteUser(id: string): Promise<{ message: string }> {
         const user = await this.db.user.findUnique({
