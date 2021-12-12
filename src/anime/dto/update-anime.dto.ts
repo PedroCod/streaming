@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, isNotEmpty } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsBoolean } from "class-validator";
 
 export class UpdateAnimeDto {
 
@@ -21,4 +21,11 @@ export class UpdateAnimeDto {
     @IsOptional()
     @IsNotEmpty()
     image: string
+}
+
+export class WatchedDto {
+    
+    @IsBoolean()
+    assistido: boolean;
+   
 }

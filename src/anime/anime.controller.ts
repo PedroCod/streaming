@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { Anime } from '@prisma/client';
 import { AnimeService } from './anime.service';
 import { CreateAnimeDto } from './dto/create-anime.dto';
-import { UpdateAnimeDto } from './dto/update-anime.dto';
+import { UpdateAnimeDto, WatchedDto } from './dto/update-anime.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('anime')
@@ -36,5 +36,11 @@ export class AnimeController {
   @Delete('delete-anime/:id')
   remove(@Param('id') id: string): Promise<{message: string}> {
     return this.animeService.remove(id);
+  }
+
+  @UseGuards(AuthGuard())
+  @Patch('update-watched/:id')
+  updateWatched(@Param('id') id: string, @Body() dados: WatchedDto): Promise<Anime> {
+    return this.animeService.updateWatched(id, dados);
   }
 }

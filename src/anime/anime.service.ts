@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { PrismaService } from 'src/prisma.service';
 import { Anime } from '@prisma/client'
 import { CreateAnimeDto } from './dto/create-anime.dto';
-import { UpdateAnimeDto } from './dto/update-anime.dto';
+import { UpdateAnimeDto, WatchedDto } from './dto/update-anime.dto';
 
 @Injectable()
 export class AnimeService {
@@ -58,5 +58,13 @@ export class AnimeService {
       })
     }
     return {message:'Anime found and deleted'}
+  }
+
+  async updateWatched (id: string, dados: WatchedDto): Promise<Anime> {
+    const anime = await this.db.anime.update({
+      data: dados,
+      where: {id},
+    })
+    return anime;
   }
 }

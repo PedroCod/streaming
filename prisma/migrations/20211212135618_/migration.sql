@@ -22,6 +22,7 @@ CREATE TABLE "Anime" (
     "totaleps" TEXT NOT NULL,
     "totaltemp" TEXT NOT NULL,
     "image" TEXT NOT NULL,
+    "assistido" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
